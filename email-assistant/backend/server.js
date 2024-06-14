@@ -13,7 +13,7 @@ const OpenAI = require("openai");
 const CLIENT_ID = "";
 // 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
 const CLIENT_SECRET = "";
-// OPENAI_API_KEY = "sk-proj-r0qYWgauOF65oQoz3X3LT3BlbkFJDfapdZu0gmI3XAWMrsoW";
+//sk-proj-r0qYWgauOF65oQoz3X3LT3BlbkFJDfapdZu0gmI3XAWMrsoW
 const REDIRECT_URI = "http://localhost:5173";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
