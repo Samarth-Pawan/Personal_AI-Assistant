@@ -4,7 +4,8 @@ from openai import OpenAI
 
 app = Flask(__name__)
 
-api_key = 'sk-proj-RrwpZh2QiI8Autv15jniT3BlbkFJEPmyyalRf1ADqYEamTZL'
+# sk-proj-RrwpZh2QiI8Autv15jniT3BlbkFJEPmyyalRf1ADqYEamTZL
+api_key = ''
 
 @app.route('/api/ai', methods=['POST'])
 def ai_response():

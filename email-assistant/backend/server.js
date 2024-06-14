@@ -9,16 +9,18 @@ app.use(bodyParser.json());
 require("dotenv").config();
 const OpenAI = require("openai");
 
-const CLIENT_ID =
-  "701574296601-kd5v8akn6qb5iat85d666oatjqicf2t7.apps.googleusercontent.com";
-const CLIENT_SECRET = "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";
+// 701574296601 - kd5v8akn6qb5iat85d666oatjqicf2t7.apps.googleusercontent.com;
+const CLIENT_ID = "";
+// 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
+const CLIENT_SECRET = "";
 // OPENAI_API_KEY = "sk-proj-r0qYWgauOF65oQoz3X3LT3BlbkFJDfapdZu0gmI3XAWMrsoW";
 const REDIRECT_URI = "http://localhost:5173";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
+// sk - proj - rqqybaFLFQCAkJnJ2kewT3BlbkFJXqd45y7ex3ypKac8dMHz;
 const openai = new OpenAI({
-  apiKey: "sk-proj-rqqybaFLFQCAkJnJ2kewT3BlbkFJXqd45y7ex3ypKac8dMHz",
+  apiKey: "",
 });
 
 app.post("/auth/google", async (req, res) => {
