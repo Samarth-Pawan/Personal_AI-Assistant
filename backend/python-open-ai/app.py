@@ -1,21 +1,40 @@
 # app.py
 from flask import Flask, request, jsonify
-import openai
+from openai import OpenAI
 
 app = Flask(__name__)
 
-openai.api_key = 'sk-proj-x3H48R4Qpqw3PY3wNVPnT3BlbkFJ5aTN97hIaPIlZhs2oPRA'
+api_key = 'sk-proj-RrwpZh2QiI8Autv15jniT3BlbkFJEPmyyalRf1ADqYEamTZL'
 
 @app.route('/api/ai', methods=['POST'])
 def ai_response():
+
+
     data = request.get_json()
+    print(data)
     user_message = data['message']
-    response = openai.Completion.create(
-        engine="davinci-codex",
-        prompt=user_message,
-        max_tokens=150
+
+
+    client = OpenAI(
+        # This is the default and can be omitted
+        api_key=api_key,
     )
-    return jsonify({"response": response.choices[0].text.strip()})
+
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": user_message,
+            }
+        ],
+        model="gpt-3.5-turbo",
+    )
+
+
+    print(chat_completion)
+
+
+    return jsonify({"response": "nckjsnckj"})
 
 if __name__ == '__main__':
-    app.run(port=8000)
+    app.run(port=8080)

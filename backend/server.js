@@ -16,11 +16,11 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
   const userMessage = req.body.message;
   console.log(userMessage);
-  res.send("Backend server is walking");
+  // res.send("Backend server is walking");
 
-  //   Here you would call your Python backend for AI response
+  // Here you would call your Python backend for AI response
   try {
-    const aiResponse = await axios.post("http://localhost:8000/api/ai", {
+    const aiResponse = await axios.post("http://localhost:8080/api/ai", {
       message: userMessage,
     });
     res.json({ response: aiResponse.data.response });
