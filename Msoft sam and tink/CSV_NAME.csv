@@ -1,0 +1,29 @@
+Sender,Subject,Date,Snippet,Message_body
+samarth pawan <samarthpawan@gmail.com>,"this is to inform you that f,jghduigbs.kd˘rasa",2024-06-13,"[11:16 am] Samarth Pawan conversion into vector embeddings using sentence transformer libraries 2. everybody is using diff matching techniques, here nearest-neighbour, someone else is using euclidean,","[<p>[11:16 am] Samarth Pawan
+
+   1. conversion into vector embeddings using sentence transformer libraries
+   2. everybody is using diff matching techniques, here nearest-neighbour,
+   someone else is using euclidean, some cosine similarity, as you said Tf-idf
+   will also work
+
+   but problem lies in the threshold value determination right?
+   can this not be learnt over time based on user queries, like the query
+   match with cache can happen, and parallely LLM answer received, and we
+   match the answers, if they do, then we add the query similarity score to a
+   list
+
+   final threshold value can be the mean similiarity score of these values,
+   or perofrm clustering and remove outliers from these values?
+   and once this model is trained and threshold is learnt, it can run based
+   one LRU cache system
+
+[11:17 am] Samarth Pawan
+
+   - Sentence Transformers: For generating text embeddings.
+   - FAISS or Annoy: For efficient similarity searches.
+   - SQLite or Redis: For storing embeddings and responses
+   pip install sentence-transformers faiss-cpu redis
+
+   do you want to check this method out for accuracy?
+</p>]"
+,,2024-06-13,This is a test email body.,
