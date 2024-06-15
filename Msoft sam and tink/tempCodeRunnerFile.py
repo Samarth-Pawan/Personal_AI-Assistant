@@ -1,1 +1,1 @@
-t
+SCOPES = ['https://www.googleapis.com/auth/calendar','https://mail.google.com/']

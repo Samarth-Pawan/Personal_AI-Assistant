@@ -1,18 +1,14 @@
+import os
+import re
 import datetime
-import datetime
-import os.path
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-
 # Define the scopes
-SCOPES = ['https://www.googleapis.com/auth/calendar']
+SCOPES = ['https://www.googleapis.com/auth/calendar','https://mail.google.com/']
 
 def create_service():
     """Authenticate and create the Google Calendar service."""
@@ -30,20 +26,52 @@ def create_service():
     service = build('calendar', 'v3', credentials=creds)
     return service
 
-def create_calendar(service):
-    """Create a new calendar."""
-    request_body = {
-        'summary': 'Project Track',
-        'timeZone': 'Asia/Kolkata'
-    }
-    response = service.calendars().insert(body=request_body).execute()
-    print('Calendar created: %s' % response['id'])
-    return response['id']
+def is_valid_email(email):
+    """Validate email address."""
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None
 
-def create_event(service, calendar_id):
+def get_event_details():
+    """Get event details from the user."""
+    summary = input("Enter the event summary: ")
+    description = input("Enter the event description: ")
+    
+    while True:
+        start_time_str = input("Enter the event start time (YYYY-MM-DD HH:MM): ")
+        try:
+            start_time = datetime.datetime.strptime(start_time_str, "%Y-%m-%d %H:%M")
+            break
+        except ValueError:
+            print("Invalid format. Please enter the date and time in 'YYYY-MM-DD HH:MM' format.")
+    
+    duration_hours = int(input("Enter the event duration in hours: "))
+    end_time = start_time + datetime.timedelta(hours=duration_hours)
+    
+    return summary, description, start_time, end_time
+
+def get_attendees(attendees=None):
+    """Recursively get attendees."""
+    if attendees is None:
+        attendees = []
+    
+    email = input("Enter attendee email (or press Enter to finish): ")
+    if not email:
+        return attendees
+    
+    if is_valid_email(email):
+        attendee = {
+            'displayName': email.split('@')[0],  # Using the part before '@' as the display name
+            'email': email,
+            'responseStatus': 'needsAction'  # Default status
+        }
+        attendees.append(attendee)
+    else:
+        print(f"Invalid email address: {email}. Please try again.")
+    
+    return get_attendees(attendees)
+
+def create_event(service, calendar_id, summary, description, start_time, end_time, attendees):
     """Create an event in the specified calendar."""
-    start_time = datetime.datetime(2024, 6, 15, 16, 30, 0)  # Example start time
-    end_time = start_time + datetime.timedelta(hours=2)
     timeZone = 'Asia/Kolkata'
     
     event_request_body = {
@@ -55,23 +83,14 @@ def create_event(service, calendar_id):
             'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
             'timeZone': timeZone
         },
-        'summary': 'Project Meet',
-        'description': 'Discussion of the Hackathon project',
+        'summary': summary,
+        'description': description,
         'colorId': 5,
         'status': 'confirmed',
         'transparency': 'opaque',
         'visibility': 'private',
         'location': 'Thane, Viviana',
-        'attendees': [
-            {
-                'displayName': 'Tanishq',
-                'comment': 'HACKATHON TEST',
-                'email': 'vijay.kurhade@gmail.com',
-                'optional': False,
-                'organizer': True,
-                'responseStatus': 'accepted'
-            }
-        ]
+        'attendees': attendees
     }
     
     response = service.events().insert(
@@ -84,8 +103,10 @@ def create_event(service, calendar_id):
 
 def main():
     service = create_service()
-    calendar_id = create_calendar(service)
-    create_event(service, calendar_id)
+    calendar_id = 'primary'  # Use the primary calendar
+    summary, description, start_time, end_time = get_event_details()
+    attendees = get_attendees()
+    create_event(service, calendar_id, summary, description, start_time, end_time, attendees)
 
 if __name__ == "__main__":
     main()

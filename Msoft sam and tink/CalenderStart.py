@@ -8,11 +8,11 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
+SCOPES = ['https://www.googleapis.com/auth/calendar','https://mail.google.com/']
 
 def main():
     """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
+    Prints the start and name of the next 'n' events on the user's calendar.
     """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -40,15 +40,18 @@ def main():
     try:
         service = build("calendar", "v3", credentials=creds)
 
+        # Ask the user for the number of events to retrieve
+        num_events = int(input("Enter the number of upcoming events to retrieve: "))
+
         # Call the Calendar API
         now = datetime.datetime.utcnow().isoformat() + "Z"  # 'Z' indicates UTC time
-        print("Getting the upcoming 10 events")
+        print(f"Getting the upcoming {num_events} events")
         events_result = (
             service.events()
             .list(
                 calendarId="primary",
                 timeMin=now,
-                maxResults=10,
+                maxResults=num_events,
                 singleEvents=True,
                 orderBy="startTime",
             )
@@ -60,7 +63,7 @@ def main():
             print("No upcoming events found.")
             return
 
-        # Prints the start and name of the next 10 events
+        # Prints the start and name of the next 'n' events
         for event in events:
             start = event["start"].get("dateTime", event["start"].get("date"))
             print(start, event["summary"])
@@ -71,8 +74,10 @@ def main():
             print("This error might be due to invalid credentials or insufficient permissions.")
         elif error.resp.status == 404:
             print("The requested resource was not found.")
+            
         else:
             print("An unexpected error occurred. Please try again.")
 
 if __name__ == "__main__":
     main()
+3

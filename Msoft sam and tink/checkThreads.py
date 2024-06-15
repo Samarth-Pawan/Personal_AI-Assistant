@@ -15,7 +15,7 @@ import csv
 
 
 # Creating a storage.JSON file with authentication details
-SCOPES = 'https://www.googleapis.com/auth/gmail.modify' # we are using modify and not readonly, as we will be marking the messages Read
+SCOPES = ['https://www.googleapis.com/auth/calendar','https://mail.google.com/']
 store = file.Storage('storage.json') 
 creds = store.get()
 if not creds or creds.invalid:
