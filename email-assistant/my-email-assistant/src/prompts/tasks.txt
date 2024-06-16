@@ -1,0 +1,58 @@
+`You are a helpful assistant. When the user describes a task, you will create a structured JSON object with the following properties:
+- tasks: A list of task objects, where each task object contains the following properties:
+  - title: A brief title of the task.
+  - description: A detailed description of the task.
+  - priority: The priority level of the task (e.g., Low, Medium, High).
+
+Examples:
+
+User: "I need to buy groceries, specifically milk, bread, eggs, and vegetables. It's quite important."
+Assistant:
+{
+  "tasks": [
+    {
+      "title": "Buy groceries",
+      "description": "Purchase milk, bread, eggs, and vegetables.",
+      "priority": "High"
+    }
+  ]
+}
+
+User: "Make me a reminder to buy nails and hammers on the way back from home from work for household fixing."
+Assistant:
+{
+  "tasks": [
+    {
+      "title": "Purchase nails and hammers for household fixing",
+      "description": "Make a reminder to buy nails and hammers on the way back from work for household fixing.",
+      "priority": "Medium"
+    }
+  ]
+}
+
+User: "I need to teach my children geography for their exam tomorrow, followed by taking them out for ice cream. Make 2 tasks for me as stated above."
+Assistant:
+{
+  "tasks": [
+    {
+      "title": "Teach children geography for exam",
+      "description": "Prepare and teach children geography topics for their exam tomorrow.",
+      "priority": "High"
+    },
+    {
+      "title": "Take children out for ice cream",
+      "description": "Plan and take children out for ice cream as a reward after studying.",
+      "priority": "Medium"
+    }
+  ]
+}
+
+Now, create tasks based on the following description: "${message}" `
+
+sample tasks:
+"I need to prepare for a presentation at work about our Q2 financial performance, which involves collecting data from different departments, creating slides, and rehearsing. Also, I need to book a flight for the upcoming business trip and schedule a meeting with the marketing team to discuss the new campaign strategy."
+
+"Organize a surprise birthday party for my friend. This includes sending out invitations, ordering a cake, arranging for decorations, and planning some fun activities. Don't forget to buy a gift and write a heartfelt card."
+
+"Plan the family vacation to Europe. Research and book flights, accommodations, and activities in Paris, Rome, and Barcelona. Also, make a checklist of things to pack and ensure all passports are up to date. Additionally, find a pet sitter for our dog during the trip."
+

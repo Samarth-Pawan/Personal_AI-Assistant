@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, SimpleGrid, Text, Link, VStack } from "@chakra-ui/react";
+import { Flex, Box, SimpleGrid, Text, Link, VStack } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   IoFitness,
@@ -12,24 +12,30 @@ import {
 
 const HomePage = ({ username }) => {
   const features = [
-    { name: "Fitness Manager", path: "/fitness-manager", icon: IoFitness },
-    {
-      name: "Calendar Scheduling",
-      path: "/calendar-scheduling",
-      icon: IoCalendar,
-    },
+    // { name: "Fitness Manager", path: "/fitness-manager", icon: IoFitness },
+    // {
+    //   name: "Calendar Scheduling",
+    //   path: "/calendar-scheduling",
+    //   icon: IoCalendar,
+    // },
     {
       name: "Nutrition Tracker",
       path: "/nutrition-tracker",
       icon: IoNutrition,
     },
-    { name: "Weather", path: "/weather", icon: IoCloudy },
-    { name: "News", path: "/news", icon: IoNewspaper },
-    { name: "Email Composer", path: "/email-composer", icon: IoMail },
+    { name: "Task Manager", path: "/task-manager", icon: IoCloudy },
+    { name: "General chat", path: "/general-chat", icon: IoNewspaper },
+    { name: "Mail Manager", path: "/mail-manager", icon: IoMail },
   ];
 
   return (
-    <Box p={5}>
+    <Flex
+      p={5}
+      direction="column"
+      // justifyContent="center"
+      alignItems="center"
+      h="100vh"
+    >
       {username && (
         <Text
           as="h1"
@@ -42,17 +48,19 @@ const HomePage = ({ username }) => {
           //   bg="gray.200"
           p={4}
           borderRadius="lg"
+          w="100%"
         >
           Welcome, {username}!
         </Text>
       )}
-      <SimpleGrid columns={{ sm: 2, md: 3 }} spacing={10}>
+      <SimpleGrid columns={{ sm: 2, md: 3 }} spacing={10} w="100%" mt="100px">
         {features.map((feature, index) => (
           <Link
             as={RouterLink}
             to={feature.path}
             key={index}
             style={{ textDecoration: "none" }}
+            minWidth="25%"
           >
             <Box
               p={5}
@@ -78,7 +86,7 @@ const HomePage = ({ username }) => {
           </Link>
         ))}
       </SimpleGrid>
-    </Box>
+    </Flex>
   );
 };
 

@@ -9,6 +9,7 @@ import {
   CircularProgress,
   CircularProgressLabel,
   Divider,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 const FitnessManager = () => {
@@ -24,16 +25,30 @@ const FitnessManager = () => {
     fatsConsumed: 60,
   };
 
+  // Color mode values
+  const bgCard = useColorModeValue("white", "gray.700");
+  const textCard = useColorModeValue("gray.800", "white");
+  const progressBg = useColorModeValue("gray.200", "gray.600");
+
   return (
     <Box p={5}>
-      <Heading as="h1" size="xl" textAlign="center" mb={6}>
+      <Heading as="h1" size="xl" textAlign="center" mb={6} color={textCard}>
         Fitness Manager
       </Heading>
 
       {/* Nutrition Cards */}
       <Grid templateColumns="repeat(2, 1fr)" gap={6} mb={6}>
         <GridItem colSpan={1}>
-          <Box p={5} shadow="md" borderWidth="1px" borderRadius="lg">
+          <Box
+            p={5}
+            shadow="md"
+            borderWidth="1px"
+            borderRadius="lg"
+            bg={bgCard}
+            color={textCard}
+            transition="all 0.3s ease"
+            _hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
+          >
             <Heading as="h2" size="md" mb={4}>
               Nutrition Goals
             </Heading>
@@ -59,7 +74,16 @@ const FitnessManager = () => {
           </Box>
         </GridItem>
         <GridItem colSpan={1}>
-          <Box p={5} shadow="md" borderWidth="1px" borderRadius="lg">
+          <Box
+            p={5}
+            shadow="md"
+            borderWidth="1px"
+            borderRadius="lg"
+            bg={bgCard}
+            color={textCard}
+            transition="all 0.3s ease"
+            _hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
+          >
             <Heading as="h2" size="md" mb={4}>
               Nutrition Progress
             </Heading>
@@ -73,6 +97,7 @@ const FitnessManager = () => {
                 }
                 color="green.400"
                 size="80px"
+                trackColor={progressBg}
               >
                 <CircularProgressLabel>
                   {nutritionData.caloriesConsumed} kcal
@@ -89,6 +114,7 @@ const FitnessManager = () => {
                 }
                 color="blue.400"
                 size="80px"
+                trackColor={progressBg}
               >
                 <CircularProgressLabel>
                   {nutritionData.proteinConsumed} g
@@ -104,6 +130,7 @@ const FitnessManager = () => {
                 }
                 color="purple.400"
                 size="80px"
+                trackColor={progressBg}
               >
                 <CircularProgressLabel>
                   {nutritionData.carbsConsumed} g
@@ -119,6 +146,7 @@ const FitnessManager = () => {
                 }
                 color="orange.400"
                 size="80px"
+                trackColor={progressBg}
               >
                 <CircularProgressLabel>
                   {nutritionData.fatsConsumed} g
