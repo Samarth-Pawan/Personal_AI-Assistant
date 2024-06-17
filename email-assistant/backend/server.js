@@ -46,22 +46,50 @@ app.post("/auth/google", async (req, res) => {
 });
 
 // API endpoint to fetch upcoming events from CalendarStart.py
-app.get("/fetch-events", (req, res) => {
+app.post("/fetch-events", (req, res) => {
+  const { numEvents } = req.body;
+
   const pythonProcess = spawn("python3", [
-    "/Users/samarthpawan/Documents/Personal_AI-Assistant/Msoft-sam-tink/CalendarStart.py",
+    "/Users/samarthpawan/Documents/Personal_AI-Assistant/Msoft-sam-tink/CalendarStart-final.py",
+    numEvents.toString(),
   ]);
 
+  let stdout = "";
+  let stderr = "";
+
   pythonProcess.stdout.on("data", (data) => {
-    console.log(`stdout: ${data}`);
+    stdout += data.toString();
   });
 
   pythonProcess.stderr.on("data", (data) => {
-    console.error(`stderr: ${data}`);
+    stderr += data.toString();
   });
 
   pythonProcess.on("close", (code) => {
     console.log(`child process exited with code ${code}`);
-    res.json({ success: code === 0 });
+    try {
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        throw new Error("Python script encountered an error.");
+      }
+
+      // Parse stdout as JSON
+      const jsonData = JSON.parse(stdout.trim());
+      if (!jsonData.success) {
+        throw new Error(
+          jsonData.message || "Unknown error from Python script."
+        );
+      }
+
+      // Send events to the frontend
+      res.json({ success: true, events: jsonData.events });
+    } catch (error) {
+      console.error("Error handling Python script response:", error);
+      res.status(500).json({
+        success: false,
+        message: "An error occurred while fetching events.",
+      });
+    }
   });
 });
 

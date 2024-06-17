@@ -33,7 +33,8 @@ const CreateEventForm = () => {
   };
 
   return (
-    <Box mt={4} borderWidth={1} borderRadius="md" p={4}>
+    <>
+      {/* // <Box mt={4} borderWidth={1} borderRadius="md" p={4}> */}
       <Text fontSize="xl" mb={4}>
         Create Event
       </Text>
@@ -68,7 +69,8 @@ const CreateEventForm = () => {
           <Button type="submit">Create Event</Button>
         </VStack>
       </form>
-    </Box>
+    </>
+    // </Box>
   );
 };
 
