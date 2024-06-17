@@ -58,11 +58,11 @@ To install BITSY, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/bitsy.git
+    git clone https://github.com/Samarth-Pawan/Personal_AI-Assistant.git
     ```
 2. Navigate to the project directory:
     ```bash
-    cd bitsy
+    cd Personal_AI-Assistant
     ```
 3. Install the necessary dependencies:
     ```bash
