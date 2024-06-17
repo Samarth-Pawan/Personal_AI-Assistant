@@ -81,14 +81,50 @@ app.post("/send-email", (req, res) => {
   });
 });
 
-// Endpoint to read unread emails
-app.get("/read-emails", (req, res) => {
-  const process = spawn("python3", ["checkThreads.py"]);
+// // Endpoint to read unread emails
+// app.get("/read-emails", (req, res) => {
+//   const process = spawn("python3", ["checkThreads.py"]);
 
-  let emails = "";
+//   let emails = "";
+
+//   process.stdout.on("data", (data) => {
+//     emails += data.toString();
+//   });
+
+//   process.stderr.on("data", (data) => {
+//     console.error(`stderr: ${data}`);
+//   });
+
+//   process.on("close", (code) => {
+//     console.log(`child process exited with code ${code}`);
+//     if (code === 0) {
+//       res.status(200).json(JSON.parse(emails));
+//     } else {
+//       res.status(500).send("Failed to read emails");
+//     }
+//   });
+// });
+
+app.get("/fetch-emails", (req, res) => {
+  const process = spawn("python3", [
+    "/Users/samarthpawan/Documents/Personal_AI-Assistant/Msoft-sam-tink/checkThreads.py",
+  ]);
+
+  let dataString = "";
 
   process.stdout.on("data", (data) => {
-    emails += data.toString();
+    dataString += data.toString();
+  });
+
+  process.stdout.on("end", () => {
+    console.log("Python script output:", dataString);
+    try {
+      const emails = JSON.parse(dataString);
+      res.json({ messages: emails });
+    } catch (error) {
+      console.error("Error parsing email data:", error);
+      res.status(500).json({ error: "Failed to parse email data" });
+    }
   });
 
   process.stderr.on("data", (data) => {
@@ -97,11 +133,6 @@ app.get("/read-emails", (req, res) => {
 
   process.on("close", (code) => {
     console.log(`child process exited with code ${code}`);
-    if (code === 0) {
-      res.status(200).json(JSON.parse(emails));
-    } else {
-      res.status(500).send("Failed to read emails");
-    }
   });
 });
 
