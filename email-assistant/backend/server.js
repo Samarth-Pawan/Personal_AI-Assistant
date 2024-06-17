@@ -11,6 +11,7 @@ const OpenAI = require("openai");
 const openai = new OpenAI({
   apiKey: "sk-proj-YI3t0WADcvP2YaOzzBmvT3BlbkFJPEKLI2zyRzxeTcNkmhml",
 });
+const { spawn } = require("child_process");
 
 const CLIENT_ID =
   "701574296601-kd5v8akn6qb5iat85d666oatjqicf2t7.apps.googleusercontent.com";
@@ -44,57 +45,121 @@ app.post("/auth/google", async (req, res) => {
   }
 });
 
-app.post("/send-email", async (req, res) => {
-  const { accessToken, to, subject, body } = req.body;
-  const encodedMessage = Buffer.from(
-    `To: ${to}\r\nSubject: ${subject}\r\n\r\n${body}`
-  ).toString("base64");
-
-  try {
-    const response = await axios.post(
-      "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
-      { raw: encodedMessage },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(400).json(error.response.data);
+// Endpoint to send email
+app.post("/send-email", (req, res) => {
+  const { accessToken, to, cc, bcc, subject, body } = req.body;
+  if (!accessToken || !to || !subject || !body) {
+    return res.status(400).json({ error: "Missing required fields" });
   }
+  senderList = to.split(",").map((email) => email.trim());
+  console.log(senderList);
+  const process = spawn("python3", [
+    "/Users/samarthpawan/Documents/Personal_AI-Assistant/Msoft-sam-tink/gmail_send.py",
+    accessToken,
+    senderList,
+    cc,
+    bcc,
+    subject,
+    body,
+  ]);
+
+  process.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
+
+  process.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  process.on("close", (code) => {
+    console.log(`child process exited with code ${code}`);
+    if (code === 0) {
+      res.status(200).send("Email sent successfully");
+    } else {
+      res.status(500).send("Failed to send email");
+    }
+  });
 });
 
-app.get("/fetch-emails", async (req, res) => {
-  const { accessToken } = req.query;
+// Endpoint to read unread emails
+app.get("/read-emails", (req, res) => {
+  const process = spawn("python3", ["checkThreads.py"]);
 
-  try {
-    const response = await axios.get(
-      "https://gmail.googleapis.com/gmail/v1/users/me/messages",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    res.status(200).json(response.data);
-  } catch (error) {
-    res.status(400).json(error.response.data);
-  }
+  let emails = "";
+
+  process.stdout.on("data", (data) => {
+    emails += data.toString();
+  });
+
+  process.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  process.on("close", (code) => {
+    console.log(`child process exited with code ${code}`);
+    if (code === 0) {
+      res.status(200).json(JSON.parse(emails));
+    } else {
+      res.status(500).send("Failed to read emails");
+    }
+  });
 });
 
 app.post("/generate-email", async (req, res) => {
   const { prompt } = req.body;
+  const engineered_prompt = ` You are tasked with generating the content of an email based on user input. The user will provide the main message to be included in the body of the email. Your task is to construct the email content in the following format:
+
+Email Content Format:
+Dear Sir/Madam,
+
+[generate a body to the email based on the user's input]
+
+Regards,
+[User's Name]
+
+Instructions for the Chat Model:
+
+1. Understand the input: The user will provide the main message that should be included in the email body, which will be in the format "Content: [User's provided message]".
+
+2. Construct the email content: Format the provided message into the email body structure specified above. Ensure that the email starts with a respectful salutation ("Dear Sir/Madam,"), includes the user-provided message, and ends with a closing remark ("Regards, [User's Name]").
+
+3. Maintain professionalism: Ensure that the generated email content follows professional etiquette, is concise, and avoids jargon.
+
+Example Input and Expected Output:
+
+- Example 1:
+  - Input:
+    Content: write me a mail to inquire about the status of my application.
+  - Expected Output:
+    Dear Sir/Madam,
+    \n\n
+    I am writing to inquire about the status of my application. Could you please provide an update at your earliest convenience?
+    \n\n
+    Regards,\n
+    [User's Name]
+
+- Example 2:
+  - Input:
+    Content: Thank you for considering my request. I look forward to your response.
+  - Expected Output:
+    Dear Sir/Madam,
+    \n\n
+    Thank you for considering my request. I look forward to your response.
+    \n\n
+    Regards,\n
+    [User's Name]
+ `;
 
   try {
     const completion = await openai.chat.completions.create({
       messages: [
-        { role: "system", content: "You are a helpful assistant." },
+        {
+          role: "system",
+          content: engineered_prompt,
+        },
         {
           role: "user",
-          content: `Generate a professional email based on the following prompt: ${prompt}`,
+          content: `${engineered_prompt} Generate a professional email based on the following prompt: ${prompt}`,
         },
       ],
       model: "gpt-3.5-turbo",
@@ -109,6 +174,46 @@ app.post("/generate-email", async (req, res) => {
     res.status(500).json({ error: "Failed to generate email" });
   }
 });
+
+// app.post("/generate-email", async (req, res) => {
+//   const { prompt } = req.body;
+//   const engineered_prompt = `
+// You are tasked with generating an email draft based on user input. The user will provide details such as the recipient(s), carbon copy (CC), blind carbon copy (BCC), subject, and content of the email. Your task is to construct an email object in the following format:
+
+// Email Object Format:
+// {
+//   "to": ["Recipient1 Email", "Recipient2 Email", ...],
+//   "cc": ["CC1 Email", "CC2 Email", ...],
+//   "bcc": ["BCC1 Email", "BCC2 Email", ...],
+//   "subject": "Email Subject",
+//   "content": "Email Content"
+// }`;
+
+//   try {
+//     const completion = await openai.chat.completions.create({
+//       messages: [
+//         { role: "system", content: engineered_prompt },
+//         {
+//           role: "user",
+//           content: ` ${engineered_prompt} Generate a professional email, no jargon, follow email etiquettes, keep it brief, based on the following prompt: ${prompt}`,
+//         },
+//       ],
+//       model: "gpt-3.5-turbo",
+//     });
+
+//     const reply = completion.choices[0].message.content;
+//     let emailData = JSON.parse(inputString);
+//     console.log(emailData);
+
+//     res.status(200).json({ text: emailData });
+//   } catch (error) {
+//     console.error(
+//       "Error generating email:",
+//       error.response ? error.response.data : error.message
+//     );
+//     res.status(500).json({ error: "Failed to generate email" });
+//   }
+// });
 
 // this is where the chat server begins
 app.post("/chat", async (req, res) => {

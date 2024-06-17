@@ -26,6 +26,11 @@ const Navbar = ({ handleLogout }) => {
               Nutrition Tracker
             </Button>
           </Link>
+          <Link to="/mail-manager">
+            <Button colorScheme="teal" variant="ghost" ml={4}>
+              Mail Manager
+            </Button>
+          </Link>
           <Link to="/general-chat">
             <Button colorScheme="teal" variant="ghost" ml={4}>
               General Chat

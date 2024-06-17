@@ -12,7 +12,7 @@ import {
 
 const HomePage = ({ username }) => {
   const features = [
-    // { name: "Fitness Manager", path: "/fitness-manager", icon: IoFitness },
+    { name: "Mail Manager", path: "/mail-manager", icon: IoFitness },
     // {
     //   name: "Calendar Scheduling",
     //   path: "/calendar-scheduling",

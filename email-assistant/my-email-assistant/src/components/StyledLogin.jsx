@@ -42,6 +42,12 @@ const StyledLogin = ({ onLogin }) => {
         const { given_name } = userInfoRes.data;
 
         onLogin({ access_token, id_token, openAiKey }, given_name);
+        console.log(
+          "Logged in with auth data:",
+          access_token,
+          id_token,
+          openAiKey
+        );
       } catch (error) {
         console.error("Login Failed:", error);
         toast({

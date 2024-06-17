@@ -21,6 +21,7 @@ const App = () => {
   const [userName, setUserName] = useState(null);
 
   const handleLogin = (authData, username) => {
+    console.log("auth data:", authData);
     setAuth(authData);
 
     // make username capitalized
@@ -30,10 +31,11 @@ const App = () => {
     username = capitalize(username);
 
     setUserName(username);
-    console.log("Logged in with auth data:", authData, userName);
+    // console.log("Logged in with auth data:", authData, userName);
   };
 
   const handleLogout = () => {
+    console.log("Logging out...", auth);
     setAuth(null);
     setUserName(null);
     console.log("Logged out");
@@ -47,6 +49,7 @@ const App = () => {
           prompt,
         }
       );
+      // const emailData = response.data.text;
       setGeneratedEmail(response.data.text);
     } catch (error) {
       console.error(
@@ -79,6 +82,7 @@ const App = () => {
                       <EmailComposer
                         onGenerate={handleGenerate}
                         generatedEmail={generatedEmail}
+                        auth={auth}
                       />
                       <EmailList emails={emails} />
                     </>
