@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, Box, Text, VStack } from "@chakra-ui/react";
+import {
+  Button,
+  Box,
+  Text,
+  VStack,
+  Grid,
+  GridItem,
+  Spinner,
+} from "@chakra-ui/react";
 import axios from "axios";
 import CreateEventForm from "./CreateEventForm";
 
@@ -8,19 +16,15 @@ const CalendarEvents = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchEvents();
+    fetchEvents(5); // Fetch initial 5 events on component mount
   }, []);
 
   const fetchEvents = async (numEvents) => {
-    console.log(numEvents);
     setIsLoading(true);
     try {
       const response = await axios.post("http://localhost:5003/fetch-events", {
         numEvents: numEvents,
       });
-      console.log("Fetch Events Response:", response.data);
-      // Handle response.data based on your requirements
-      // Example: Update state with events received from the backend
       setEvents(response.data.events);
     } catch (error) {
       console.error("Error fetching events:", error);
@@ -35,20 +39,37 @@ const CalendarEvents = () => {
         <Text fontSize="xl" mb={4}>
           Upcoming Events
         </Text>
-        <Button mt={4} colorScheme="blue" onClick={() => fetchEvents(5)}>
+        <Button
+          mt={4}
+          colorScheme="blue"
+          onClick={() => fetchEvents(events.length + 5)} // Fetch additional 5 events
+        >
           Refresh Upcoming Events
         </Button>
         {isLoading ? (
-          <Text>Loading...</Text>
+          <Box textAlign="center" mt={4}>
+            <Spinner size="lg" color="blue.500" />
+          </Box>
         ) : (
-          <VStack align="stretch" spacing={4}>
+          <Grid
+            templateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+            gap={4}
+            mt={4}
+          >
             {events.map((event, index) => (
-              <Box key={index} borderWidth={1} borderRadius="md" p={2}>
+              <GridItem key={index} borderWidth={1} borderRadius="md" p={4}>
                 <Text fontWeight="bold">{event.summary}</Text>
-                <Text>{event.start}</Text>
-              </Box>
+                <Text mt={2}>{event.start}</Text>
+                {/* Additional information like attendees and description */}
+                {event.attendees && (
+                  <Text mt={2}>Attendees: {event.attendees.join(", ")}</Text>
+                )}
+                {event.description && (
+                  <Text mt={2}>Description: {event.description}</Text>
+                )}
+              </GridItem>
             ))}
-          </VStack>
+          </Grid>
         )}
       </Box>
 

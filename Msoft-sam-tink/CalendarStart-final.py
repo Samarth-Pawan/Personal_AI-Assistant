@@ -61,15 +61,29 @@ def main(num_events):
             return {"success": False, "message": "No upcoming events found."}
 
         # Prepare the list of events to return
+        # upcoming_events = []
+        # for event in events:
+        #     start = event["start"].get("dateTime", event["start"].get("date"))
+        #     upcoming_events.append({
+        #         "start": start,
+        #         "summary": event["summary"]
+        #     })
+
+        # return json.dumps({"success": True, "events": upcoming_events})
+
         upcoming_events = []
-        print(events)
         for event in events:
             start = event["start"].get("dateTime", event["start"].get("date"))
+            attendees = event.get("attendees", [])
+            description = event.get("description", "")
             upcoming_events.append({
                 "start": start,
-                "summary": event["summary"]
+                "summary": event["summary"],
+                "attendees": attendees,
+                "description": description
             })
 
+        # Print the JSON response
         return json.dumps({"success": True, "events": upcoming_events})
 
     except HttpError as error:
