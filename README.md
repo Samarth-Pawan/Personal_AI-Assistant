@@ -11,6 +11,8 @@
 
 
 
+
+
 ![BITSY Logo](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/LOGO.png?raw=true)
 
 
@@ -313,6 +315,73 @@ def create_event(calendar_service, gmail_service, calendar_id, summary, descript
         send_message(gmail_service, 'me', message)
 
 ```
+
+This code is used to Manage chat messages state and provides functions to add and clear messages,in  the local storage.
+```bash
+ReactJS:
+
+import React, { createContext, useState, useEffect } from "react";
+
+// Create the ChatContext
+const ChatContext = createContext();
+
+// Define the ChatProvider component
+export const ChatProvider = ({ children }) => {
+  // Initialize state with messages from local storage or an empty array
+  const [messages, setMessages] = useState(() => {
+    const savedMessages = localStorage.getItem("chatMessages");
+    return savedMessages ? JSON.parse(savedMessages) : [];
+  });
+
+  // Update local storage whenever messages change
+  useEffect(() => {
+    localStorage.setItem("chatMessages", JSON.stringify(messages));
+  }, [messages]);
+
+  // Function to add a new message
+  const addMessage = (message) => {
+    setMessages((prevMessages) => [...prevMessages, message]);
+  };
+
+  // Function to clear all messages
+  const clearMessages = () => {
+    setMessages([]);
+  };
+
+  return (
+    <ChatContext.Provider value={{ messages, addMessage, clearMessages }}>
+      {children}
+    </ChatContext.Provider>
+  );
+};
+
+export default ChatContext;
+
+
+```
+This code is basically used to give the user an http client link that has been authorized with the credentials.json file
+```bash
+PYTHON:
+
+def authorized_http(credentials):
+    #Returns an http client that is authorized with the given credentials.
+
+
+    from googleapiclient.http import build_http
+
+    if HAS_GOOGLE_AUTH and isinstance(credentials, google.auth.credentials.Credentials):
+        if google_auth_httplib2 is None:
+            raise ValueError(
+                "Credentials from google.auth specified, but "
+                "google-api-python-client is unable to use these credentials "
+                "unless google-auth-httplib2 is installed. Please install "
+                "google-auth-httplib2."
+            )
+        return google_auth_httplib2.AuthorizedHttp(credentials, http=build_http())
+    else:
+        return credentials.authorize(build_http())
+```
+
 
 
 ## Acknowledgement
