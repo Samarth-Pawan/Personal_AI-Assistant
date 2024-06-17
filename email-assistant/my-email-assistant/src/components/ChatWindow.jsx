@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// ChatWindow.js
+import React, { useContext, useState } from "react";
 import {
   Box,
   Input,
@@ -9,19 +10,23 @@ import {
   useColorModeValue,
   useColorMode,
   IconButton,
+  Spinner,
 } from "@chakra-ui/react";
 import { FiSend } from "react-icons/fi";
 import axios from "axios";
+import ChatContext from "./ChatContext"; // Import your ChatContext
 
 const ChatWindow = () => {
-  const [messages, setMessages] = useState([]);
+  const { messages, addMessage } = useContext(ChatContext); // Use ChatContext
+
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
   const { colorMode } = useColorMode();
 
   const sendMessage = async () => {
     if (input.trim()) {
       const newUserMessage = { text: input, sender: "user" };
-      setMessages([...messages, newUserMessage]);
+      addMessage(newUserMessage); // Add message to context
       setInput("");
 
       try {
@@ -30,7 +35,7 @@ const ChatWindow = () => {
         });
 
         const aiResponse = { text: response.data.response, sender: "ai" };
-        setMessages((prevMessages) => [...prevMessages, aiResponse]);
+        addMessage(aiResponse); // Add AI response to context
       } catch (error) {
         console.error("Error sending message:", error);
       }
@@ -56,7 +61,6 @@ const ChatWindow = () => {
         boxShadow="md"
         bg={useColorModeValue("white", "gray.700")}
         h="100%"
-        backgroundImage="../ai.webp"
       >
         {messages.map((msg, index) => (
           <HStack

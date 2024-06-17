@@ -5,8 +5,8 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
-require("dotenv").config();
+const { mongoose } = require("mongoose");
+const dotenv = require("dotenv").config();
 const OpenAI = require("openai");
 const openai = new OpenAI({
   apiKey: "sk-proj-YI3t0WADcvP2YaOzzBmvT3BlbkFJPEKLI2zyRzxeTcNkmhml",
@@ -16,6 +16,14 @@ const CLIENT_ID =
   "701574296601-kd5v8akn6qb5iat85d666oatjqicf2t7.apps.googleusercontent.com";
 const CLIENT_SECRET = "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";
 const REDIRECT_URI = "http://localhost:5173";
+const MONGO_URL =
+  "mongodb+srv://samarthpawan:QYalU3cvQ1HdpME2@cluster0.pizurq1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+// Connect to MongoDB
+mongoose
+  .connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.error("Error connecting to MongoDB:", error));
 
 app.post("/auth/google", async (req, res) => {
   const { code } = req.body;
@@ -141,19 +149,18 @@ app.post("/tasks", (req, res) => {
   const { title, description, priority } = req.body;
 
   const newTask = {
-    id: req.taskId,
+    id: Date.now(),
     title,
     description,
     priority,
   };
-
   tasks.push(newTask);
-
   res.json({ task: newTask });
 });
 
-app.post("/tasks/:id/complete", (req, res) => {
-  const taskId = parseInt(req.params.id);
+app.post("/tasks/complete", (req, res) => {
+  // console.log(req.body);
+  const { taskId } = req.body;
   const taskIndex = tasks.findIndex((task) => task.id === taskId);
 
   if (taskIndex > -1) {

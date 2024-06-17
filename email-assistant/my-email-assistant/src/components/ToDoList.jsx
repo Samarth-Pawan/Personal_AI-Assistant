@@ -8,7 +8,6 @@ import {
   Input,
   Button,
   Checkbox,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -38,8 +37,8 @@ const ToDoList = () => {
   const addTask = async () => {
     try {
       const response = await axios.post("http://localhost:5003/tasks", newTask);
-      const generatedTask = await generateTask(response.data.task);
-      setTasks([...tasks, generatedTask]);
+      const addedTask = response.data.task;
+      setTasks([...tasks, addedTask]);
       setNewTask({ title: "", description: "", priority: "Low" });
     } catch (error) {
       console.error("Error adding task:", error);
@@ -47,8 +46,12 @@ const ToDoList = () => {
   };
 
   const completeTask = async (taskId) => {
+    console.log("Adding task:", newTask, taskId);
+
     try {
-      await axios.post(`http://localhost:5003/tasks/${taskId}/complete`);
+      await axios.post(`http://localhost:5003/tasks/complete`, {
+        taskId,
+      });
       fetchTasks();
     } catch (error) {
       console.error("Error completing task:", error);
@@ -110,7 +113,7 @@ const ToDoList = () => {
             Tasks
           </Heading>
           {tasks.slice(0, 5).map((task) => (
-            <HStack key={task.id} justify="space-between">
+            <HStack key={task._id} justify="space-between">
               <Checkbox onChange={() => completeTask(task.id)}>
                 {task.title}
               </Checkbox>
