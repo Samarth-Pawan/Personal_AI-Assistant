@@ -4,7 +4,9 @@
 ![Language](https://img.shields.io/badge/Language-JavaScript-F7DF1E?style=flat-square)
 ![Language](https://img.shields.io/badge/Language-MongoDB-4DB33D?style=flat-square)
 ![Language](https://img.shields.io/badge/Language-React.JS-61DAFB?style=flat-square)
-
+![Model](https://img.shields.io/badge/Model-Ai_Assistant-ffffff?style=flat-square)
+![Model](https://img.shields.io/badge/Model-LLM-5123Df?style=flat-square)
+![Model](https://img.shields.io/badge/Model-OpenAI-5183CA?style=flat-square)
 
 
 
