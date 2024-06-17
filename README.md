@@ -10,7 +10,8 @@ Welcome to BITSY Your Personal AI Assistant!
 - [Introduction](#introduction)
 - [Features](#features)
 - [Installation](#installation)
-- [Usage And Code Documentation](#usage)
+- [Troubleshooting](#troubleshooting)
+- [CodeDocumentation](#codedocumentation)
 - [Acknowledgement](#acknowledgement)
 - [Contact](#Contact)
 
@@ -88,7 +89,7 @@ Since we are using an Internal Google Server you can use these Following Credent
 
 - Password : LiteCooder
 
-# Troubleshooting
+## Troubleshooting
 incase If program gives you an error you can try these troubleshooting techniques 
 * Since we are running this on a Free Google Cloud ,Incase if you use our dummy email, even though we have disabled our 2Fa for our account. On the account of Google's rules and policies you may need to perform a authentication procedure by selecting a number , you can contact one of us for the authentication procedure
 * Delete the token file in your repository and run the program again for mail and calendar features
@@ -97,7 +98,7 @@ incase If program gives you an error you can try these troubleshooting technique
 
 
 
-## Usage And Code Documentation
+## CodeDocumentation
 
 Here's a brief example of how BITSY Code Works:
 
