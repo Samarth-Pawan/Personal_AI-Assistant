@@ -83,14 +83,19 @@ Now you can run the program locally
 2. Once done choose any one of the Features you want to explore
 3. For using of Email or Calendar API , since they use Google API you may need to authorize the account , you will be prompted to a google API window choose the email ID given below (tanishqcode7987@gmail.com) and click on authorize and select both gmail and calendar options when prompted once done you will see a message that you can close the application
 
-incase If program gives you an error you can try these
-* Delete the token file in your repository
-
-
 Since we are using an Internal Google Server you can use these Following Credentials to test our product on this dummy account.
 - Email ID: tanishqcode7987@gmail.com
 
 - Password : LiteCooder
+
+# Troubleshooting
+incase If program gives you an error you can try these troubleshooting techniques 
+* Since we are running this on a Free Google Cloud ,Incase if you use our dummy email, even though we have disabled our 2Fa for our account. On the account of Google's rules and policies you may need to perform a authentication procedure by selecting a number , you can contact one of us for the authentication procedure
+* Delete the token file in your repository and run the program again for mail and calendar features
+* Try to open the console to check the error log for any discrepancy
+* Feel free to contact anyone of us for any problem
+
+
 
 ## Usage And Code Documentation
 
@@ -310,6 +315,11 @@ def create_event(calendar_service, gmail_service, calendar_id, summary, descript
     * API Integration: Used Python for interacting with Google Suite APIs, including Gmail API and Google Calendar API.
 * We also acquired essential skills such as effective teamwork, managing and delivering a high-quality project within a tight deadline, utilizing Git and GitHub for version control and collaboration, and Properly documenting our code.
 
+
+* ### Resources
+    * https://developers.google.com/gmail/api/guides
+    * https://console.cloud.google.com/apis/dashboard?authuser=1&project=silent-thunder-426305-p5
+    * https://microsoft.acehacker.com/hackathon/
 ## Contact
 
 Please Feel Free to contact the creators for any further help
