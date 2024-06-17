@@ -1,4 +1,13 @@
 # BITSY
+![Language](https://img.shields.io/badge/Language-Python-428F7E?style=flat-square)
+![Language](https://img.shields.io/badge/Language-HTML%2FCSS-E34F26?style=flat-square)
+![Language](https://img.shields.io/badge/Language-JavaScript-F7DF1E?style=flat-square)
+![Language](https://img.shields.io/badge/Language-MongoDB-4DB33D?style=flat-square)
+![Language](https://img.shields.io/badge/Language-React.JS-61DAFB?style=flat-square)
+
+
+
+
 
 ![BITSY Logo](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/LOGO.png?raw=true)
 
