@@ -25,6 +25,7 @@ const HomePage = ({ username }) => {
     },
     { name: "Task Manager", path: "/task-manager", icon: IoCloudy },
     { name: "General chat", path: "/general-chat", icon: IoNewspaper },
+    { name: "Schedule Events", path: "/calendar", icon: IoNewspaper },
     { name: "Mail Manager", path: "/mail-manager", icon: IoMail },
   ];
 

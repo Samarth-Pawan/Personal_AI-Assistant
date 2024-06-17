@@ -13,6 +13,8 @@ import Navbar from "./components/Navbar";
 import axios from "axios";
 import ToDoList from "./components/ToDoList";
 import PromptRedirector from "./components/PromptRedirecter";
+import CalendarEvents from "./components/CalendarEvents";
+import CreateEventForm from "./components/CreateEventForm";
 
 const App = () => {
   const [auth, setAuth] = useState(null);
@@ -71,6 +73,16 @@ const App = () => {
                 <Route
                   path="/prompt-redirecter"
                   element={<PromptRedirector />}
+                />
+                <Route
+                  path="/calendar"
+                  // element={
+                  //   <>
+                  //     <CalendarEvents />
+                  //     <CreateEventForm />
+                  //   </>
+                  // }
+                  element={<CalendarEvents />}
                 />
                 <Route path="/nutrition-tracker" element={<FitnessManager />} />
                 <Route path="/general-chat" element={<ChatWindow />} />

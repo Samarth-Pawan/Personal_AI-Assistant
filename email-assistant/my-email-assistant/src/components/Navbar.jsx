@@ -26,6 +26,11 @@ const Navbar = ({ handleLogout }) => {
               Nutrition Tracker
             </Button>
           </Link>
+          <Link to="/calendar">
+            <Button colorScheme="teal" variant="ghost" ml={4}>
+              Calendar / Schedule Events
+            </Button>
+          </Link>
           <Link to="/mail-manager">
             <Button colorScheme="teal" variant="ghost" ml={4}>
               Mail Manager

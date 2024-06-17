@@ -45,6 +45,52 @@ app.post("/auth/google", async (req, res) => {
   }
 });
 
+// API endpoint to fetch upcoming events from CalendarStart.py
+app.get("/fetch-events", (req, res) => {
+  const pythonProcess = spawn("python3", [
+    "/Users/samarthpawan/Documents/Personal_AI-Assistant/Msoft-sam-tink/CalendarStart.py",
+  ]);
+
+  pythonProcess.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
+
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  pythonProcess.on("close", (code) => {
+    console.log(`child process exited with code ${code}`);
+    res.json({ success: code === 0 });
+  });
+});
+
+// API endpoint to create event using CalendarSend.py
+app.post("/create-event", (req, res) => {
+  const { summary, description, startTime, duration, attendees } = req.body;
+  const pythonProcess = spawn("python3", [
+    "/Users/samarthpawan/Documents/Personal_AI-Assistant/Msoft-sam-tink/CalendarSend-final.py",
+    summary,
+    description,
+    startTime,
+    duration,
+    attendees.join(","),
+  ]);
+
+  pythonProcess.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
+
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  pythonProcess.on("close", (code) => {
+    console.log(`child process exited with code ${code}`);
+    res.json({ success: code === 0 });
+  });
+});
+
 // Endpoint to send email
 app.post("/send-email", (req, res) => {
   const { accessToken, to, cc, bcc, subject, body } = req.body;
@@ -80,30 +126,6 @@ app.post("/send-email", (req, res) => {
     }
   });
 });
-
-// // Endpoint to read unread emails
-// app.get("/read-emails", (req, res) => {
-//   const process = spawn("python3", ["checkThreads.py"]);
-
-//   let emails = "";
-
-//   process.stdout.on("data", (data) => {
-//     emails += data.toString();
-//   });
-
-//   process.stderr.on("data", (data) => {
-//     console.error(`stderr: ${data}`);
-//   });
-
-//   process.on("close", (code) => {
-//     console.log(`child process exited with code ${code}`);
-//     if (code === 0) {
-//       res.status(200).json(JSON.parse(emails));
-//     } else {
-//       res.status(500).send("Failed to read emails");
-//     }
-//   });
-// });
 
 app.get("/fetch-emails", (req, res) => {
   const process = spawn("python3", [
