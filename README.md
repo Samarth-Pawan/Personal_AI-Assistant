@@ -46,7 +46,7 @@ BITSY is an innovative project for Microsoft's AI Hackathon 2024 aimed at provid
 
 ![Chat](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/Chat.jpeg)
 
-![Todo] (https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/Todo.jpeg)
+![Todo](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/1578c39c97a59091a61fc91e4cdec85eee1675cf/email-assistant/Todo.jpeg)
 
 - Calendar scheduling using Google Calendar
     - Prints out the upcoming Events along with its date and time
