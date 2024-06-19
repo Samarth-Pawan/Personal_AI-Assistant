@@ -5,17 +5,32 @@ import {
   Button,
   useColorMode,
   useColorModeValue,
+  Image,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const Navbar = ({ handleLogout }) => {
   const { toggleColorMode } = useColorMode();
   const bgColor = useColorModeValue("gray.100", "gray.900");
+  const borderColor = useColorModeValue("teal", "teal.400");
 
   return (
-    <Box bg={bgColor} px={4} py={2} boxShadow="md">
+    <Box
+      bg={bgColor}
+      px={4}
+      py={2}
+      boxShadow="md"
+      borderBottom="1.5px solid"
+      borderBottomColor={borderColor}
+    >
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <Box>
+          {/* <Image
+            src="./logo.png"
+            alt="Logo"
+            boxSize="40px"
+            borderRadius="full"
+          /> */}
           <Link to="/">
             <Button colorScheme="teal" variant="ghost">
               Home
@@ -44,11 +59,6 @@ const Navbar = ({ handleLogout }) => {
           <Link to="/task-manager">
             <Button colorScheme="teal" variant="ghost" ml={4}>
               Task Manager
-            </Button>
-          </Link>
-          <Link to="/mail-manager">
-            <Button colorScheme="teal" variant="ghost" ml={4}>
-              Mail Manager
             </Button>
           </Link>
         </Box>

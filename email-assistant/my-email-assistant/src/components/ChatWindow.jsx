@@ -23,6 +23,13 @@ const ChatWindow = () => {
   const [loading, setLoading] = useState(false);
   const { colorMode } = useColorMode();
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent default behavior (like form submission)
+      sendMessage();
+    }
+  };
+
   const sendMessage = async () => {
     if (input.trim()) {
       const newUserMessage = { text: input, sender: "user" };
@@ -115,6 +122,7 @@ const ChatWindow = () => {
       </Box>
       <HStack spacing={4}>
         <Input
+          onKeyDown={handleKeyPress}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message"

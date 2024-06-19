@@ -92,6 +92,16 @@ const EmailComposer = ({ onGenerate, generatedEmail, auth }) => {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           size="lg"
+          css={{
+            height: "auto",
+            minHeight: "90px",
+
+            boxShadow: "none",
+            transition: "height 0.2s",
+            "&:focus": {
+              borderColor: "blue.400",
+            },
+          }}
         />
         <Button onClick={handleGenerate} colorScheme="teal" size="lg">
           Generate Email

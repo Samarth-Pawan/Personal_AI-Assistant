@@ -76,7 +76,7 @@ const StyledLogin = ({ onLogin }) => {
       boxShadow="lg"
     >
       <Heading as="h1" size="xl" textAlign="center" mb={6}>
-        Welcome to Tinsanity!
+        Welcome to BITSY!
       </Heading>
       {/* {userName && (
         <Text fontSize="lg" textAlign="center" mb={4}>

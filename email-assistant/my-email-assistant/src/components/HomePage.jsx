@@ -6,27 +6,27 @@ import {
   IoCalendar,
   IoNutrition,
   IoCloudy,
-  IoNewspaper,
+  IoChatbubbleEllipses,
   IoMail,
+  IoCalendarClear,
 } from "react-icons/io5";
 
 const HomePage = ({ username }) => {
   const features = [
-    { name: "Mail Manager", path: "/mail-manager", icon: IoFitness },
-    // {
-    //   name: "Calendar Scheduling",
-    //   path: "/calendar-scheduling",
-    //   icon: IoCalendar,
-    // },
+    { name: "Mail Manager", path: "/mail-manager", icon: IoMail },
+    {
+      name: "Calendar Scheduling",
+      path: "/calendar-scheduling",
+      icon: IoCalendar,
+    },
     {
       name: "Nutrition Tracker",
       path: "/nutrition-tracker",
       icon: IoNutrition,
     },
     { name: "Task Manager", path: "/task-manager", icon: IoCloudy },
-    { name: "General chat", path: "/general-chat", icon: IoNewspaper },
-    { name: "Schedule Events", path: "/calendar", icon: IoNewspaper },
-    { name: "Mail Manager", path: "/mail-manager", icon: IoMail },
+    { name: "General Chat", path: "/general-chat", icon: IoChatbubbleEllipses },
+    { name: "Schedule Events", path: "/calendar", icon: IoCalendarClear },
   ];
 
   return (
