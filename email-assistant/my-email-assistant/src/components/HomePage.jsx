@@ -16,7 +16,7 @@ const HomePage = ({ username }) => {
     { name: "Mail Manager", path: "/mail-manager", icon: IoMail },
     {
       name: "Calendar Scheduling",
-      path: "/calendar-scheduling",
+      path: "/calendar",
       icon: IoCalendar,
     },
     {
