@@ -32,7 +32,7 @@ Welcome to BITSY Your Personal AI Assistant!
 BITSY is an innovative project for Microsoft's AI Hackathon 2024 aimed at providing the user Multiple features like schedule tasks, manage calendars, provide reminders, and answer queries.
 
 ## Features
-![login](email-assistant/Login Page.jpeg)
+![login](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/a30444402bb8ae3181f44280d55380417f9946ce/email-assistant/Login%20Page.jpeg)
 
 ![login](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/LoginPage.jpg?raw=true)
 
