@@ -93,12 +93,10 @@ Need to setup frontendm backend as well as python(Mix folders
     npm install
     npm start
 
-5. a) Install the necessary packages in Msoft-sam-tinku using pip for python connection with calendar and email api's:
+5. Install the necessary packages in Msoft-sam-tinku using pip for python connection with calendar and email api's:
     ```bash
     pip install google-auth google-auth-oauthlib google-api-python-client httplib2 oauth2client beautifulsoup4 python-dateutil
-
-OR
-5. b) Alternatively you can execute this in Msoft-sam-tinku folder which will automatically install necessary python libraries. Path of requirements.txt is as follows -> 
+6. Alternatively you can execute this in Msoft-sam-tinku folder which will automatically install necessary python libraries. Path of requirements.txt is as follows:
     ```bash
     pip install -r requirements.txt
 
