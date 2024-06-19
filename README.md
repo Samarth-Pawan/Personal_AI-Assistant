@@ -12,7 +12,6 @@
 
 
 
-
 ![BITSY Logo](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/LOGO.png?raw=true)
 
 
@@ -33,6 +32,11 @@ Welcome to BITSY Your Personal AI Assistant!
 BITSY is an innovative project for Microsoft's AI Hackathon 2024 aimed at providing the user Multiple features like schedule tasks, manage calendars, provide reminders, and answer queries.
 
 ## Features
+![login](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/Login Page.jpg?raw=true)
+
+![login](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/LoginPage.jpg?raw=true)
+
+
 
 - Calendar scheduling using Google Calendar
     - Prints out the upcoming Events along with its date and time
@@ -66,7 +70,8 @@ BITSY is an innovative project for Microsoft's AI Hackathon 2024 aimed at provid
         - Protein
     - Allows user to track their nutrition calorie content
 
-![login](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/Login Page.jpg?raw=true)
+
+
 
 
 ## Installation
@@ -130,6 +135,8 @@ incase If program gives you an error you can try these troubleshooting technique
 
 
 ## CodeDocumentation
+
+
 
 Here's a brief example of how BITSY Code Works:
 
