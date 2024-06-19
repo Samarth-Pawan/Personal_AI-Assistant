@@ -69,6 +69,7 @@ BITSY is an innovative project for Microsoft's AI Hackathon 2024 aimed at provid
 ## Installation
 
 To install BITSY, follow these steps:
+Need to setup frontendm backend as well as python(Mix folders
 
 1. Clone the repository:
     ```bash
@@ -77,16 +78,32 @@ To install BITSY, follow these steps:
 2. Navigate to the project directory:
     ```bash
     cd Personal_AI-Assistant
+    cd email-assistant
     ```
-3. Install the necessary dependencies:
+3. Install the necessary dependencies for frontend:
     ```bash
+    cd my-email-assistant
     npm install
-    ```
-     or
+    npm run dev
 
+4. Install the necessary dependencies for backend:
     ```bash
-    npm install 
-   ```
+    cd backend
+    npm init -y
+    npm install
+    npm start
+
+5. Install the necessary packages in Msoft-sam-tinku using pip for python connection with calendar and email api's:
+    ```bash
+    pip install google-auth google-auth-oauthlib google-api-python-client httplib2 oauth2client beautifulsoup4 python-dateutil
+
+OR
+    Alternatively you can execute this in Msoft-sam-tinku folder which will automatically install necessary python libraries. Path of requirements.txt is as follows -> 
+    ```bash
+    pip install -r requirements.txt
+
+
+
 
 
 
