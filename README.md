@@ -66,6 +66,9 @@ BITSY is an innovative project for Microsoft's AI Hackathon 2024 aimed at provid
         - Protein
     - Allows user to track their nutrition calorie content
 
+![login](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/Login Page.jpg?raw=true)
+
+
 ## Installation
 
 To install BITSY, follow these steps:
