@@ -34,9 +34,19 @@ BITSY is an innovative project for Microsoft's AI Hackathon 2024 aimed at provid
 ## Features
 ![login](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/a30444402bb8ae3181f44280d55380417f9946ce/email-assistant/Login%20Page.jpeg)
 
-![login](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/main/email-assistant/LoginPage.jpg?raw=true)
+![WhiteDB](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/LightMode%20Dashboard.jpeg)
 
+![DarkDB](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/DarkMode%20Dashboard.jpeg)
 
+![Email](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/EmailTracker.jpeg)
+
+![Nutrition](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/NutritionTracker.jpeg)
+
+![Calender](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/CalenderSchedule.jpeg)
+
+![Chat](https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/Chat.jpeg)
+
+![Todo] (https://github.com/Samarth-Pawan/Personal_AI-Assistant/blob/4b97573d1709c9be0f30b8787fc27531e832d849/email-assistant/Todo.jpeg)
 
 - Calendar scheduling using Google Calendar
     - Prints out the upcoming Events along with its date and time
